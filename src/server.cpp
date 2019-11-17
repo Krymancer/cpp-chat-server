@@ -56,6 +56,7 @@ void *recvmg(void *sock) {
             }
         }
     }
+    
     n--;
 
     pthread_mutex_unlock(&mutex);
@@ -107,8 +108,10 @@ int main(int argc, char *argv[]) {
         printf("%s Connected\n", inet_ntoa(their_addr.sin_addr));
         cl.sockno = their_sock;
         strcpy(cl.ip, inet_ntoa(their_addr.sin_addr));
+
         clients[n] = their_sock;
         n++;
+
         pthread_create(&recvt, NULL, recvmg, &cl);
         pthread_mutex_unlock(&mutex);
     }
